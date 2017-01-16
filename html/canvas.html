@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+<canvas id='canvas' width="600" height="600" style="background: #000;"></canvas>
+
+<div>
+    <label>线条数量</label>
+    <input type="number" value="5" id="lineNum" />
+</div>
+
+<script type="text/javascript">
+
+var canvas = document.getElementById('canvas').getContext('2d');
+
+var width = window.innerWidth - 20,
+    height = window.innerHeight - 50;
+
+    canvas.canvas.width = width;
+    canvas.canvas.height = height;
+
+var canvasSet = {
+    points : [],
+    canvas : canvas,
+    pointsLength : 5,
+    width: width,
+    height: height,
+}
+
+var animation = {
+    mouseX : true,
+    mouseY : true,
+    canvas : canvas,
+};
+
+canvasSet.creatPoint = function(width,height){
+    var countx = Math.ceil( Math.random()*2 ),
+        county = Math.ceil( Math.random()*2 );
+
+    var speendX = Math.random() / 2,
+        speendY = Math.random() / 2;
+    var point = {
+        x: parseInt(Math.random()*width),
+        y: parseInt(Math.random()*height),
+        speendX: (countx >1) ? speendX : -speendX,
+        speendY: (county >1) ? speendY : -speendY,
+    };
+    this.points.push(point);
+    return point;
+};
+
+canvasSet.creatLine = function(){
+    this.canvas.strokeStyle="#ffffff";
+    this.canvas.beginPath();
+
+    for (var i = 0; i < this.points.length; i++) {
+
+            for( var j = 1; j < this.points.length; j++){
+
+                var startX = this.points[i].x,
+                    startY = this.points[i].y,
+                    endX = this.points[j].x,
+                    endY = this.points[j].y;
+
+                this.canvas.moveTo( startX , startY );
+                this.canvas.lineTo( endX , endY );
+
+            }
+            if ( i == this.points.length - 1 ) break
+    }
+    this.canvas.stroke();
+};
+
+canvasSet.drawCanvars = function(){
+    this.canvas.strokeStyle="#ffffff";
+    this.canvas.beginPath();
+
+    for( var i = 0; i < this.pointsLength; i++ ){
+        var points = this.creatPoint( width , height );
+        this.canvas.moveTo( points.x, points.y );
+        this.canvas.lineTo( points.x+1, points.y+1 );
+    }
+
+    this.canvas.stroke();
+    this.creatLine();
+}
+
+canvasSet.changeArg = function(val){
+    if ( val - this.pointsLength >0 ) {
+        this.creatPoint( width , height );
+        this.pointsLength ++
+    }else{
+        this.points.pop();
+        this.pointsLength --
+    }
+
+}
+
+animation.collisionCheck = function(point , index){
+    if ( point.x >= canvasSet.width || point.x <= 0 ) {
+        var newSpeend = ( point.speendX >= 0 ) ? - (Math.random()/2) : Math.random()/2;
+        point.speendX = newSpeend;
+    }
+
+    if ( point.y >= canvasSet.height || point.y <= 0 ) {
+        var newSpeend = ( point.speendY >= 0 ) ? - (Math.random()/2) : Math.random()/2;
+        point.speendY = newSpeend;
+    }
+}
+
+animation.mousemove = function(x,y) {
+    this.mouseX = x;
+    this.mouseY = y;
+};
+
+animation.pointsMove = function(){
+    var _this = this;
+    setInterval(function(){
+        canvas.clearRect( 0 , 0 , width , height)
+        for( var i = 0 ; i < canvasSet.pointsLength ; i++ ){
+            
+            var point = canvasSet.points[i];
+
+            point.x += point.speendX,
+            point.y += point.speendY;
+
+            if ( point.x >= canvasSet.width || point.y >= canvasSet.height || point.x <= 0 || point.y <= 0 ) {
+                _this.collisionCheck(point,i)
+            }
+
+            _this.canvas.moveTo( point.x , point.y);
+            _this.canvas.lineTo( point.x + 1 ,point.y + 1 );
+        }
+        this.canvas.stroke();
+        canvasSet.creatLine();
+    },1)
+};
+
+canvasSet.drawCanvars();
+animation.pointsMove();
+
+$('#canvas').mousemove(function(event){
+    var x = event.offsetX,
+        y = event.offsetY;
+        animation.mousemove(x,y)
+});
+
+$('#lineNum').get(0).onchange = function(){
+    var val = this.value;
+    canvasSet.changeArg(val)
+}
+
+console.log(canvasSet)
+
+</script>
+
+</body>
+
+
+
+</html>
