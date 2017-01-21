@@ -1,1 +1,2 @@
 baseurl: /blog
+excerpt_separator:  '<!-- more -->'

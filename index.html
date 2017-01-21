@@ -24,7 +24,7 @@ title: 我的Blog
 							</div>
 						</header>
 						<div class="entry-content clearfix">
-							<p>{{ post.content  ||split:'<!--more-->'|first }}</p>
+							<p>{{ post.excerpt | strip_html }}</p>
 							<div class="read-more cl-effect-14">
 								<a href="#" class="more-link"> 继续阅读 <span class="meta-nav">→</span></a>
 							</div>
