@@ -2,30 +2,21 @@
 layout: default
 title: 我的Blog
 ---
-<!-- <h2>{{ page.title }}</h2>
-<p>最新文章</p>
-<ul>
-	{% for post in site.posts %}
-	<li>{{ post.date | date_to_string }} <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
-	{% endfor %}
-</ul> -->
 {% for post in site.posts %}
-
-					<article class="post post-1">
-						<header class="entry-header">
-							<h1 class="entry-title">
-								<a href="single.html">{{ post.title }}</a>
-							</h1>
-							<div class="entry-meta">
-								<span class="post-category"><a href="#">{{ post.date | date_to_string }}</a></span>
-							</div>
-						</header>
-						<div class="entry-content clearfix">
-							<p>{{ post.excerpt | strip_html }}</p>
-							<div class="read-more cl-effect-14">
-								<a href="#" class="more-link"> 继续阅读 <span class="meta-nav">→</span></a>
-							</div>
-						</div>
-					</article>
-
+<article class="post post-1">
+	<header class="entry-header">
+		<h1 class="entry-title">
+			<a href="single.html">{{ post.title }}</a>
+		</h1>
+		<div class="entry-meta">
+			<span class="post-category"><a href="#">{{ post.date | date_to_string }}</a></span>
+		</div>
+	</header>
+	<div class="entry-content clearfix">
+		<p>{{ post.excerpt | strip_html }}</p>
+		<div class="read-more cl-effect-14">
+			<a href="#" class="more-link"> 继续阅读 <span class="meta-nav">→</span></a>
+		</div>
+	</div>
+</article>
 {% endfor %}
