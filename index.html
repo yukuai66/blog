@@ -21,6 +21,7 @@ title: 我的Blog
 </article>
 {% endfor %}
 
+<!-- 分页 -->
 <ul class="pagination">
   <li>
       <a href="{{ site.baseurl}}/page">
@@ -53,6 +54,7 @@ title: 我的Blog
       {% endif %}
   </li>
   {% endfor %}
+
   <li>
       {% if paginator.page == paginator.total_pages %}
       <span>&raquo;</span>
