@@ -23,7 +23,7 @@ title: 我的Blog
 
 <ul class="pagination">
   <li>
-      <a href="{{ site.baseurl}}/article/">
+      <a href="{{ site.baseurl}}/page">
           <span>首页</span>
       </a>
   </li>
@@ -32,9 +32,9 @@ title: 我的Blog
       <span>&laquo;</span>
   {% else %}
       {% if paginator.previous_page == 1 %}
-      <a href="{{ site.baseurl}}/article/">
+      <a href="{{ site.baseurl}}/page">
       {% else %}
-      <a href="{{ site.baseurl}}/article/{{ paginator.previous_page }}">
+      <a href="{{ site.baseurl}}/page{{ paginator.previous_page }}">
       {% endif %}
           <span>&laquo;</span>
       </a>
@@ -47,9 +47,9 @@ title: 我的Blog
   <li>
       {% endif %}
       {% if i == 1 %}
-      <a href="{{site.baseurl}}/article">{{i}}</a>
+      <a href="{{site.baseurl}}/page">{{i}}</a>
       {% else %}
-      <a href="{{site.baseurl}}/article/{{i}}">{{i}}</a>
+      <a href="{{site.baseurl}}/page{{i}}">{{i}}</a>
       {% endif %}
   </li>
   {% endfor %}
@@ -57,13 +57,13 @@ title: 我的Blog
       {% if paginator.page == paginator.total_pages %}
       <span>&raquo;</span>
       {% else %}
-      <a href="{{ site.baseurl}}/article/{{ paginator.next_page }}">
+      <a href="{{ site.baseurl}}/page{{ paginator.next_page }}">
           <span>&raquo;</span>
       </a>
       {% endif %}
   </li>
   <li>
-      <a href="{{ site.baseurl}}/article/{{paginator.total_pages}}">
+      <a href="{{ site.baseurl}}/page{{paginator.total_pages}}">
           <span>末页</span>
       </a>
   </li>
